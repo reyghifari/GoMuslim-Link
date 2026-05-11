@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Muslim | Teman Ibadahmu Sehari-hari</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #047857;
+            /* Emerald 600 */
+            --primary-dark: #022c22;
+            /* Emerald 900 */
+            --primary-light: #10b981;
+            /* Emerald 500 */
+            --gold: #fbbf24;
+            /* Amber 400 */
+            --gold-dark: #d97706;
+            /* Amber 600 */
+            --text-light: #f8fafc;
+            --text-muted: #cbd5e1;
+            --bg-overlay: rgba(2, 44, 34, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-dark);
+            /* Islamic 8-point star pattern (Rub el Hizb) mixed with subtle emerald gradient */
+            background-image:
+                radial-gradient(circle at top right, rgba(16, 185, 129, 0.15), transparent 50%),
+                radial-gradient(circle at bottom left, rgba(217, 119, 6, 0.1), transparent 40%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg stroke='%23d97706' stroke-width='1.5' stroke-opacity='0.12' fill='none'%3E%3Crect x='20' y='20' width='40' height='40' /%3E%3Crect x='20' y='20' width='40' height='40' transform='rotate(45 40 40)' /%3E%3C/g%3E%3C/svg%3E");
+            background-position: top right, bottom left, center;
+            background-attachment: fixed;
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: rgba(4, 120, 87, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            border-radius: 28px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(251, 191, 36, 0.05);
+            text-align: center;
+        }
+
+        .profile-wrapper {
+            margin-bottom: 2.5rem;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: 3px solid var(--gold);
+            margin: 0 auto 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            box-shadow: 0 0 25px rgba(217, 119, 6, 0.3);
+            position: relative;
+        }
+
+        /* Subtle glow animation for avatar */
+        .avatar::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            bottom: -6px;
+            left: -6px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid var(--gold);
+            opacity: 0.5;
+            animation: pulse 2.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.08);
+                opacity: 0.1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, #ffffff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.tagline {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1.1rem 1.5rem;
+            background: rgba(4, 120, 87, 0.4);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 18px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .link-btn i {
+            position: absolute;
+            left: 1.5rem;
+            font-size: 1.4rem;
+            color: var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-4px);
+            background: rgba(4, 120, 87, 0.75);
+            border-color: var(--gold);
+            box-shadow: 0 12px 24px -8px rgba(2, 44, 34, 0.7), 0 0 15px rgba(251, 191, 36, 0.25);
+        }
+
+        .link-btn:hover i {
+            transform: scale(1.15);
+        }
+
+        .link-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: var(--primary-dark);
+            border: 1px solid var(--gold-dark);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            transform: translateY(30px) scale(0.9);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle modal card highlight */
+        .modal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            display: inline-block;
+            animation: bounceIcon 2s infinite;
+        }
+
+        @keyframes bounceIcon {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .modal-desc {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            background: linear-gradient(to right, var(--gold-dark), var(--gold));
+            color: var(--primary-dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            font-family: 'Outfit', sans-serif;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+        }
+
+        .close-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(217, 119, 6, 0.4);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1.5rem;
+                border-radius: 24px;
+            }
+
+            .avatar {
+                width: 95px;
+                height: 95px;
+                font-size: 2.2rem;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .link-btn {
+                font-size: 1.05rem;
+                padding: 1rem 1.2rem;
+            }
+
+            .link-btn i {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="profile-wrapper">
+            <h1>Go Muslim</h1>
+            <p class="tagline">Teman Ibadahmu Sehari-hari</p>
+        </div>
+
+        <div class="links-container">
+            <!-- ganti URL di sini -->
+            <a href="https://play.google.com/store/apps/details?id.co.raihan.gomuslimapp" target="_blank"
+                rel="noopener noreferrer" class="link-btn">
+                <i class="fa-brands fa-google-play"></i>
+                Download di Google Play
+            </a>
+
+            <!-- Tombol App Store memanggil modal -->
+            <button id="openAppStoreModal" class="link-btn">
+                <i class="fa-brands fa-apple"></i>
+                Download di App Store
+            </button>
+
+            <!-- ganti URL di sini -->
+            <a href="https://instagram.com/gomuslim.indonesia" target="_blank" rel="noopener noreferrer"
+                class="link-btn">
+                <i class="fa-brands fa-instagram"></i>
+                Ikuti di Instagram
+            </a>
+
+            <!-- ganti URL di sini -->
+            <a href="https://tiktok.com/@go.muslim.ibadah" target="_blank" rel="noopener noreferrer" class="link-btn">
+                <i class="fa-brands fa-tiktok"></i>
+                Tonton di TikTok
+            </a>
+        </div>
+    </div>
+
+    <!-- Modal Coming Soon -->
+    <div class="modal-overlay" id="appStoreModal">
+        <div class="modal-card">
+            <div class="modal-icon">
+                <i class="fa-brands fa-app-store-ios"></i>
+            </div>
+            <h2 class="modal-title">Segera Hadir di App Store 🍎</h2>
+            <p class="modal-desc">Kami sedang mempersiapkan versi iOS untuk memberikan pengalaman ibadah terbaik di
+                perangkat Apple Anda.</p>
+            <button class="close-btn" id="closeModalBtn">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        // Modal logic
+        const openBtn = document.getElementById('openAppStoreModal');
+        const closeBtn = document.getElementById('closeModalBtn');
+        const modal = document.getElementById('appStoreModal');
+
+        // Open Modal
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            // Mencegah scroll body saat modal terbuka
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close Modal via Button
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close Modal via Overlay Click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+
+</html>
